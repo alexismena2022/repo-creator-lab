@@ -1,0 +1,22 @@
+name: Repo Creator Lab
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: 'Nombre del repo'
+        required: true
+
+      language:
+        description: 'Lenguaje'
+        required: true
+
+jobs:
+  create-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mostrar inputs
+        run: |
+          echo "Repo: ${{ github.event.inputs.repo_name }}"
+          echo "Lenguaje: ${{ github.event.inputs.language }}"
