@@ -50,7 +50,26 @@ jobs:
             "name":"${{ github.event.inputs.repo_name }}",
             "private":true
           }'
+      
+      - name: Clonar nuevo repo
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+        run: |
+
+          git clone https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository_owner }}/${{ github.event.inputs.repo_name }}.git
+
+          cd ${{ github.event.inputs.repo_name }}
+
+          echo "# ${{ github.event.inputs.repo_name }}" > README.md
+
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add .
+          git commit -m "bootstrap inicial"
+          git push
+     
       - name: Mostrar configuración
         run: |
           echo "Repo: ${{ github.event.inputs.repo_name }}"
