@@ -3,9 +3,30 @@ name: Repo Creator Lab
 on:
   workflow_dispatch:
     inputs:
+
       repo_name:
         description: 'Nombre del repo'
         required: true
+
+      language:
+        description: 'Lenguaje'
+        required: true
+        default: 'java'
+
+      build_tool:
+        description: 'Build Tool'
+        required: true
+        default: 'gradle'
+
+      cloud:
+        description: 'Cloud'
+        required: true
+        default: 'ocp'
+
+      redis:
+        description: 'Usa Redis'
+        required: true
+        default: 'false'
 
 jobs:
   create-repo:
@@ -29,3 +50,11 @@ jobs:
             "name":"${{ github.event.inputs.repo_name }}",
             "private":true
           }'
+
+      - name: Mostrar configuración
+        run: |
+          echo "Repo: ${{ github.event.inputs.repo_name }}"
+          echo "Lenguaje: ${{ github.event.inputs.language }}"
+          echo "Build Tool: ${{ github.event.inputs.build_tool }}"
+          echo "Cloud: ${{ github.event.inputs.cloud }}"
+          echo "Redis: ${{ github.event.inputs.redis }}"    
